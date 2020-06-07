@@ -1,0 +1,64 @@
+﻿@model Task.Models.UserData
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>UserData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RangeTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RangeTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Step)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Step)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.a)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.a)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.b)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.b)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

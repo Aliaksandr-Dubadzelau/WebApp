@@ -1,0 +1,58 @@
+﻿@model Task.Models.UserData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RangeTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RangeTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Step)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Step)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.a)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.a)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.b)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.b)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RangeFrom }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

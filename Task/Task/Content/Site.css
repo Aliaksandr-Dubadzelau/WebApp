@@ -1,0 +1,55 @@
+﻿body {
+    padding-top: 10%;
+}
+
+input[type=text] {
+    width: 20px;
+}
+
+.first_column {
+    width: 80px;
+}  
+ 
+table {
+    border: 2px solid black;
+    margin-bottom: 5px;
+}
+
+input[type=submit] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    background-color: dodgerblue;
+    width: 100px;
+    height: 30px;
+}
+
+.center {
+    max-width: 270px;
+    padding-top: 100px;
+}
+
+.main {
+    display: flex;
+    padding-left: 10%;
+}
+
+#myChart {
+    max-width: 600px;
+    width: 600px;
+    margin-right: 5px;
+    border: 2px solid black;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    padding-left: 10%;
+}
+
+#demo {
+    text-align: center;
+    font: 24px arial;
+    color: red;
+}

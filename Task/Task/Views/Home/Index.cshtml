@@ -15,112 +15,117 @@
 
     <script type="text/javascript">
 
-var chart;
+        var chart;
 
-window.onload = function () {
-var ctx = document.getElementById('myChart').getContext('2d');
-chart = new Chart(ctx, {
-type: 'line',
-data: {
-labels: [],
-datasets: [{
-borderColor: 'rgba(54, 99, 192, 0.6)',
-fill: false,
-data: []
-}]
-},
-options: {
-legend: {
-display: false
-}
-}
-});
-}
+        window.onload = function () {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        borderColor: 'rgba(54, 99, 192, 0.6)',
+                        fill: false,
+                        data: []
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        }
 
-function validateForm() {
-let names = ["A", "B", "C", "Step", "RangeFrom", "RangeTo"];
-var x;
-let i;
-var request = true;
+        function validateForm() {
+            let names = ["a", "b", "c", "Step", "RangeFrom", "RangeTo"];
+            var x;
+            let i;
+            var request = true;
 
-for (i = 0; i < names.length; i++) {
-document.forms["myForm"][names[i]].style.border = null;
-}
+            for (i = 0; i < names.length; i++) {
+                document.forms["myForm"][names[i]].style.border = null;
+            }
 
-document.getElementById("demo").innerHTML = "";
-for (i = 0; i < names.length; i++) {
-x = document.forms["myForm"][names[i]].value;
-if (x == "") {
-document.getElementById("demo").innerHTML = "The field cannot be empty!";
-document.forms["myForm"][names[i]].style.border = "2px solid red";
-request = false;
-break;
-} else if (!isNaN(x)) {
-if (!Number.isInteger(Number(x))) {
-document.getElementById("demo").innerHTML = "Invalid number entry. For example 2,9 (not 2.9)";
-document.forms["myForm"][names[i]].style.border = "2px solid red";
-request = false;
-break;
-} else {
-document.forms["myForm"][names[i]].value = Number(x).toFixed();
-}
-} else {
-var myRe = new RegExp("^-?[0-9]*[,][0-9]*$");
-var myArray = myRe.exec(x);
-if (!myArray) {
-document.getElementById("demo").innerHTML = "The field cannot be string!";
-document.forms["myForm"][names[i]].style.border = "2px solid red";
-request = false;
-break;
-} else {
-if (names[i] == "A" || names[i] == "B" || names[i] == "C") {
-document.getElementById("demo").innerHTML = "There should be Integer number, not Float";
-document.forms["myForm"][names[i]].style.border = "2px solid red";
-request = false;
-break;
-}
-}
-}
-}
+            document.getElementById("demo").innerHTML = "";
+            for (i = 0; i < names.length; i++) {
+                x = document.forms["myForm"][names[i]].value;
+                if (x == "") {
+                    document.getElementById("demo").innerHTML = "The field cannot be empty!";
+                    document.forms["myForm"][names[i]].style.border = "2px solid red";
+                    request = false;
+                    break;
+                } else if (!isNaN(x)) {
+                    if (!Number.isInteger(Number(x))) {
+                        document.getElementById("demo").innerHTML = "Invalid number entry. For example 2,9 (not 2.9)";
+                        document.forms["myForm"][names[i]].style.border = "2px solid red";
+                        request = false;
+                        break;
+                    } else {
+                        document.forms["myForm"][names[i]].value = Number(x).toFixed();
+                    }
+                } else {
+                    var myRe = new RegExp("^-?[0-9]*[,][0-9]*$");
+                    var myArray = myRe.exec(x);
+                    if (!myArray) {
+                        document.getElementById("demo").innerHTML = "The field cannot be string!";
+                        document.forms["myForm"][names[i]].style.border = "2px solid red";
+                        request = false;
+                        break;
+                    } else {
+                        if (names[i] == "a" || names[i] == "b" || names[i] == "c") {
+                            document.getElementById("demo").innerHTML = "There should be Integer number, not Float";
+                            document.forms["myForm"][names[i]].style.border = "2px solid red";
+                            request = false;
+                            break;
+                        }
+                    }
+                }
+            }
 
-if (request) {
-var myRe = new RegExp("^-?[0-9]*[,][0-9]*$");
+            if (request) {
+                var myRe = new RegExp("^-?[0-9]*[,][0-9]*$");
 
-if (Number(document.forms["myForm"]["Step"].value.replace(",", ".")) <= 0) {
-document.getElementById("demo").innerHTML = "The step must be bigger than 0!";
-document.forms["myForm"]["Step"].style.border = "2px solid red";
-request = false;
-}
+                if (Number(document.forms["myForm"]["Step"].value.replace(",", ".")) <= 0) {
+                    document.getElementById("demo").innerHTML = "The step must be bigger than 0!";
+                    document.forms["myForm"]["Step"].style.border = "2px solid red";
+                    request = false;
+                }
 
-if (Number(document.forms["myForm"]["RangeFrom"].value.replace(",", ".")) > Number(document.forms["myForm"]["RangeTo"].value.replace(",", "."))) {
-document.getElementById("demo").innerHTML = "Field From must be less than field To!";
-document.forms["myForm"]["RangeFrom"].style.border = "2px solid red";
-document.forms["myForm"]["RangeTo"].style.border = "2px solid red";
-request = false;
-}
-}
+                if (Number(document.forms["myForm"]["RangeFrom"].value.replace(",", ".")) > Number(document.forms["myForm"]["RangeTo"].value.replace(",", "."))) {
+                    document.getElementById("demo").innerHTML = "Field From must be less than field To!";
+                    document.forms["myForm"]["RangeFrom"].style.border = "2px solid red";
+                    document.forms["myForm"]["RangeTo"].style.border = "2px solid red";
+                    request = false;
+                }
+            }
 
-if (request) {
-$.post("/Home/Index",
-{ a: $("#txtA").val(), b: $("#txtB").val(), c: $("#txtC").val(), RangeFrom: $("#txtRangeFrom").val(), RangeTo: $("#txtRangeTo").val(), Step: $("#txtStep").val() },
-function (response) {
-console.log(response)
+            if (request) {
+                $.post("/Home/Index",
+                    { a: $("#txtA").val(), b: $("#txtB").val(), c: $("#txtC").val(), RangeFrom: $("#txtRangeFrom").val(), RangeTo: $("#txtRangeTo").val(), Step: $("#txtStep").val() },
+                    function (response) {
+                        console.log(response)
+                        //////////////
+                        if (typeof response == "object") {
+                            chart.data.labels = [];
+                            chart.data.datasets[0].data = [];
+                            chart.update();
 
-chart.data.labels = [];
-chart.data.datasets[0].data = [];
-chart.update();
+                            for (let i = 0; i < response.length; i++) {
+                                chart.data.labels[i] = response[i].PointX;
+                                chart.data.datasets[0].data[i] = response[i].PointY;
+                            }
+                            chart.update();
+                        }
+                        else if (typeof response == "string") {
+                            document.getElementById("demo").innerHTML = response;
+                        }
+                    }
+                );
+            }
 
-for (let i = 0; i < response.length; i++) {
-chart.data.labels[i] = response[i].PointX;
-chart.data.datasets[0].data[i] = response[i].PointY;
-}
-chart.update();
-}
-);
-}
-
-return false;
-}
+            return false;
+        }
     </script>
 
 </head>
@@ -142,15 +147,15 @@ return false;
                             <span>
                                 y =
                             </span>
-                            <input type="text" id="txtA" name="A" />
+                            <input type="text" id="txtA" name="a" placeholder="A" />
                             <span>
                                 x^2+
                             </span>
-                            <input type="text" id="txtB" name="B" />
+                            <input type="text" id="txtB" name="b" placeholder="B" />
                             <span>
                                 x+
                             </span>
-                            <input type="text" id="txtC" name="C" />
+                            <input type="text" id="txtC" name="c" placeholder="C" />
                         </td>
                     </tr>
                     <tr>

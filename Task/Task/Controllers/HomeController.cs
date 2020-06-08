@@ -13,23 +13,28 @@ namespace Task.Controllers
         PointContext db = new PointContext();
 
         [HttpPost]
-        public JsonResult Index(float RangeFrom, float RangeTo, float Step, int a, int b, int c)
+        public JsonResult Index(UserData Data)
         {
 
+            if (ModelState.IsValid)
+            {
 
-            UserData Data = new UserData(RangeFrom, RangeTo, Step, a, b, c);
+                AddUserDataSQL(Data);
+                SaveBD();
 
-            AddUserDataSQL(Data);
-            SaveBD();
+                List<Point> Points = FindPoints(Data);
 
-            List<Point> Points = FindPoints(Data);
+                SaveBD();
 
-            SaveBD();
+                return Json(Points);
 
-            return Json(Points);
+            }
+
+            string exceptionString = CreateExceprionsString();
+            return Json(exceptionString);
 
         }
-        
+
         private List<Point> FindPoints(UserData Data)
         {
 
@@ -55,6 +60,14 @@ namespace Task.Controllers
             return Points;
         }
 
+        private string CreateExceprionsString()
+        {
+            string defaultExceptionString = "The server rejected your request.";
+            string createdExceprionString = string.Join("; ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+            
+            return defaultExceptionString + createdExceprionString;
+        }
+
         private void SaveBD()
         {
             db.SaveChanges();
@@ -77,7 +90,7 @@ namespace Task.Controllers
             int b = Data.b;
             int c = Data.c;
 
-            float y = x * x * a + x * b + c; 
+            float y = x * x * a + x * b + c;
 
             return y;
         }
